@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>管理主页</title>
+  <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <style>
+    header {
+      background-color: #2e6da4;
+      color: white;
+    }
+    .red{
+      color: red;
+      font-weight: bold;
+    }
+    .menu{
+
+      margin-top: 20px;
+      margin-left: -15px;
+
+    }
+    .header{
+      background-color: #2e6da4;
+      color:#FFFFFF;
+      border-radius: 2px;
+      border: 1px solid #000000;
+      margin: 2px;
+    }
+    .hide{
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header class="row">
+      <h1 class="text-center">P-Monitor System</h1>
+        <div class="col-md-2 col-md-offset-10">
+            用户：{{ username }} | <a href="/login" style="color: white">退出</a>
+        </div>
+    </header>
+    <div class="row" style="margin-top: 10px;">
+      <div class="col-md-3">
+        <nav class="menu">
+          <div class="item">
+          <div class="header">监控中</div>
+          <div class="content hide"><a href="#">仪表板</a></div>
+          <div class="content hide"><a href="#">Web检测</a></div>
+          <div class="content hide"><a href="#">最新数据</a></div>
+          <div class="content hide"><a href="#">触发器</a></div>
+          </div>
+          <div class="item">
+          <div class="header">资料记录</div>
+          <div class="content "><a href="#">服务器</a></div>
+          </div>
+
+          <div class="item">
+          <div class="header">报表</div>
+          <div class="content hide"><a href="#">可用性报告</a></div>
+          <div class="content hide"><a href="#">审计</a></div>
+          </div>
+        </nav>
+      </div>
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-md-3 col-md-offset-9">
+            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">添加
+                    </button>
+          </div>
+        </div>
+
+        <table class="table table-hover">
+          <thead>
+            <th>主机名</th>
+            <th>IP</th>
+            <th>端口</th>
+            <th>用途</th>
+            <th>操作</th>
+          </thead>
+          <tbody>
+            {% for row in host_list %}
+            <tr>
+                <td><a href="/detail?nid={{ row.id }}" target="_blank">{{ row.host }}</a></td>
+              <td>{{ row.ip }}</td>
+              <td>{{ row.port }}</td>
+              <td>{{ row.remark }}</td>
+              <td><a href="/edit/{{ username }}/?nid={{ row.id }}" target="_blank">修改</a> | <a href="#" class="del" rowid="{{ row.id }}" data-toggle="modal" data-target=".bs-example-modal-sm">删除</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- 添加 -->
+  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="text-center">添加主机信息</h4></div>
+        <form class="form-horizontal" id="f_modify" method="post" action="/add/{{ username }}">
+          <div class="modal-body">
+              <div class="form-group">
+              <label for="inp_host" class="col-sm-2 control-label"><span class="red"> * </span>主机组</label>
+              <div class="col-sm-7">
+                  <select name="inp_hg" class="form-control">
+                      <option value="1">db cluster</option>
+                      <option value="2">web server</option>
+                  </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inp_host" class="col-sm-2 control-label"><span class="red"> * </span>主机名</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="inp_host" name="inp_host"  placeholder="主机名"
+                       required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inp_ip" class="col-sm-2 control-label"><span class="red"> * </span>IP</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="inp_ip" name="inp_ip" placeholder="IP" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inp_port" class="col-sm-2 control-label"><span class="red"> * </span>端口</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="inp_port" name="inp_port" placeholder="端口" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inp_dns_name" class="col-sm-2 control-label">DNS名称</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="inp_dns_name" name="inp_dns_name" placeholder="DNS名称">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inp_remark" class="col-sm-2 control-label">用途描述</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="inp_remark" name="inp_remark" placeholder="用途描述">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inp_pc" class="col-sm-2 control-label">机器型号</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="inp_pc" name="inp_pc" placeholder="机器型号">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inp_buy_year" class="col-sm-2 control-label">购买年份</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="inp_buy_year" name="inp_buy_year" placeholder="购买年份">
+              </div>
+            </div>
+
+
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="btn_add_close" class="btn btn-default">关闭</button>
+            <button type="submit" class="btn btn-primary">确定</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- 删除 -->
+  <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+      <form action="/host_del/{{ username }}" method="post">
+        <div class="modal-content">
+          <div class="modal-body">
+            确定删除该记录？
+            <input type="text" class="hide" id="nid" name="nid">
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" id="btn_delete_close" >取消</button>
+              <button type="submit" class="btn btn-primary">确定</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/static/jquery-1.12.4.min.js"></script>
+  <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  <script>
+    // 删除链接绑定事件，把nid传递给text的val
+    $('.del').click(function() {
+      var rowid = $(this).attr('rowid');
+      // console.log(rowid);
+      $('#nid').val(rowid);
+      // console.log($('#nid'));
+    });
+
+    // 关闭按钮-关闭模态窗口
+    $('#btn_delete_close').click(function(){
+      $('.bs-example-modal-sm').modal('hide');
+    });
+    // 关闭按钮-关闭模态窗口
+    $('#btn_add_close').click(function(){
+      $('.bs-example-modal-lg').modal('hide');
+    });
+
+    // 使用JQuery绑定事件
+    $('.header').click(function(){
+        // console.log(this); // 输出当前标签 header
+        // 让自己显示
+        $(this).siblings().removeClass('hide');
+        // 让其他菜单隐藏 父类 item 的同胞兄弟中再找是content的小孩，添加hide属性
+        $(this).parent().siblings().find('.content').addClass('hide');
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑</title>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <style>
+        .red {
+            color: red;
+            font-weight: bold;
+        }
+        .content{
+            width: 960px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+   <div class="content">
+        <div class="modal-header">
+          <h4 class="text-center">修改主机信息</h4></div>
+<form class="form-horizontal" id="f_modify" method="post" action="/edit/{{ username }}/?nid={{ hosts.id }}">
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="inp_host" class="col-sm-2 control-label"><span class="red"> * </span>主机组</label>
+            <div class="col-sm-7">
+                <select name="inp_hg" class="form-control">
+                    {% for hg in host_group_list %}
+                        {% ifequal  hosts.hosts_group_id  hg.id %}
+                            <option value="{{ hg.id }}" selected="selected">{{ hg.name }}</option>
+                        {% else %}
+                            <option value="{{ hg.id }}">{{ hg.name }}-{{ hosts.hosts_group_id }}-{{ hg.id }}</option>
+                        {% endifequal %}
+                    {% endfor %}
+                </select>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inp_host" class="col-sm-2 control-label"><span class="red"> * </span>主机名</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" id="inp_host" name="inp_host" placeholder="主机名"
+                       value="{{ hosts.host }}"
+                       required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inp_ip" class="col-sm-2 control-label"><span class="red"> * </span>IP</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" id="inp_ip" name="inp_ip" placeholder="IP"
+                       value="{{ hosts.ip }}" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inp_port" class="col-sm-2 control-label"><span class="red"> * </span>端口</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" id="inp_port" name="inp_port" placeholder="端口"
+                       value="{{ hosts.port }}" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inp_dns_name" class="col-sm-2 control-label">DNS名称</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" id="inp_dns_name" name="inp_dns_name"
+                       value="{{ hosts.dns_name }}" placeholder="DNS名称">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inp_remark" class="col-sm-2 control-label">用途描述</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" id="inp_remark" name="inp_remark"
+                       value="{{ hosts.remark }}" placeholder="用途描述">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inp_pc" class="col-sm-2 control-label">机器型号</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" id="inp_pc" name="inp_pc"
+                       value="{{ hosts.pc }}" placeholder="机器型号">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inp_buy_year" class="col-sm-2 control-label">购买年份</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" id="inp_buy_year" name="inp_buy_year"
+                       value="{{ hosts.buy_year }}"
+                       placeholder="购买年份">
+            </div>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" id="btn_add_close" class="btn btn-default">关闭</button>
+        <button type="submit" class="btn btn-primary">确定</button>
+    </div>
+</form>
+   </div>
+</body>
+</html>

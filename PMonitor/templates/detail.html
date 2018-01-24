@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>详情页</title>
+  <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <style>
+    header {
+      background-color: #2e6da4;
+      color: white;
+    }
+
+    .detail {
+      font-size: 1.2em;
+      border: 1px solid gray;
+      border-top: 0;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="container" style="width:480px;">
+    <header class="row">
+      <h3 class="text-center">详情</h3>
+    </header>
+    <div class="row detail">
+      <label class="col-sm-3 control-label">主机名</label>
+      <div class="col-sm-9">
+        {{data.host}}
+      </div>
+    </div>
+      <div class="row detail">
+      <label class="col-sm-3 control-label">IP</label>
+      <div class="col-sm-9">
+        {{data.ip}}
+      </div>
+    </div>
+      <div class="row detail">
+      <label class="col-sm-3 control-label">端口</label>
+      <div class="col-sm-9">
+        {{data.port}}
+      </div>
+    </div>
+      <div class="row detail">
+      <label class="col-sm-3 control-label">DNS名称</label>
+      <div class="col-sm-9">
+        {{data.dns_name}}
+      </div>
+    </div>
+      <div class="row detail">
+      <label class="col-sm-3 control-label">用途说明</label>
+      <div class="col-sm-9">
+        {{data.remark}}
+      </div>
+    </div>
+    <div class="row detail">
+      <label class="col-sm-3 control-label">机器型号</label>
+      <div class="col-sm-9">
+        {{data.pc}}
+      </div>
+    </div>
+      <div class="row detail">
+      <label class="col-sm-3 control-label">购买年份</label>
+      <div class="col-sm-9">
+        {{data.buy_year}}
+      </div>
+    </div>
+
+
+
+  </div>
+
+
+
+  <script src="/static/jquery-1.12.4.min.js"></script>
+  <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

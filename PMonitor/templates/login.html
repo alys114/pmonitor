@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/signin.css">
+</head>
+<body>
+<div class="container">
+    <form class="form-signin" action="/login" method="post">
+        <h2 class="form-signin-heading">登录</h2>
+        <label for="user" class="sr-only">用户名</label>
+        <input type="text" id="user" class="form-control" name="username" placeholder="用户名" required autofocus>
+        <label for="pwd" class="sr-only">密码</label>
+        <input type="password" id="pwd" name="password" class="form-control" placeholder="密码" required>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> 记住我
+            </label>
+
+        </div>
+
+        <input type="submit" class="btn btn-lg btn-primary btn-block" value="登录">
+        <span class="alert-warning">{{ error_msg }}</span>
+    </form>
+    <script src="/static/jquery-1.12.4.min.js"></script>
+    <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</div>
+</body>
+</html>
